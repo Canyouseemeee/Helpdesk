@@ -21,4 +21,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('issues','IssuesController');
-Route::get('/create','IssuesController@index');
+Route::get('/index','IssuesController@index');
+Route::get('/issues','IssuesController@getAdd');
+
+
+
+

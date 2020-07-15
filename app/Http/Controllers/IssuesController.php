@@ -19,7 +19,17 @@ class IssuesController extends Controller
         $list = DB::table('issues_tracker')->get();
         $list2 = DB::table('issues_priority')->get();
         $arealist = DB::table('issues_status')->get();
+        $data=Issues::all();
+        return view('index',compact(['data'],['list']));
+        // return view('issues.create')->with('list',$list)->with('list2',$list2)->with('arealist',$arealist);
+    }
+
+    public function getAdd(){
+        $list = DB::table('issues_tracker')->get();
+        $list2 = DB::table('issues_priority')->get();
+        $arealist = DB::table('issues_status')->get();
         return view('issues.create')->with('list',$list)->with('list2',$list2)->with('arealist',$arealist);
+
     }
 
     protected function validator(array $data)
@@ -49,6 +59,7 @@ class IssuesController extends Controller
             'subject' => $data['subject'],
             'description' => $data['description'],
         ]);
+        
     }
 
     
@@ -66,7 +77,7 @@ class IssuesController extends Controller
             'description'=>'required'
         ]);
         Issues::create($request->all());
-        return redirect()->back();
+        return redirect('/index');
     }
 
     /**

@@ -60,6 +60,7 @@
             
 
             <input type="submit" value="บันทึก" class="btn btn-primary">
+            <a href="/index" class="btn btn-success">ย้อนกลับ</a>
         </div>
     {!! Form::close() !!}
     </div>
