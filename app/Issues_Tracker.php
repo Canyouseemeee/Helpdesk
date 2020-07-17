@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Issues extends Model
+class Issues_Tracker extends Model
 {
     protected $fillable = [
-        'Trackerid','Priorityid','Statusid','users','subject','description'
+        'Trackerid','ISTName'
     ];
 }

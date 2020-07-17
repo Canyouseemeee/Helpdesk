@@ -19,23 +19,26 @@
   </thead>
   <tbody>
     @foreach($data as $row)
-        @foreach($list as $row2)
         <tr>
         <th scope="row">{{$row->id}}</th>
-        <td>{{$row2->ISTName}}</td>
-        <td>{{$row->Priority}}</td>
-        <td>{{$row->Status}}</td>
+        @foreach($list as $row2)
+        <td value="$row->id">{{$row2->ISTName}}</td>
+        @endforeach
+        <td>{{$row->Priorityid}}</td>
+        <td>{{$row->Statusid}}</td>
         <td>{{$row->Users}}</td>
         <td>{{$row->Subject}}</td>
         <td>{{$row->Description}}</td>
         <td>
-          <a href="/issues" class="btn btn-success">แก้ไข</a>
+          <a href="{{route('issues.edit',$row->id)}}" class="btn btn-success">แก้ไข</a>
         </td>
         <td>
-          <a href="/index" class="btn btn-danger">ลบ</a>
+          <form action="{{route('issues.destroy',$row->id)}}" method="post">
+            @csrf @method('DELETE')
+            <input type="submit" value='ลบ' data-id="{{$row->id}}" class="btn btn-danger deleteForm">
+          </form>
         </td>
         </tr>
-        @endforeach
     @endforeach
   </tbody>
 </table>

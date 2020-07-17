@@ -9,6 +9,11 @@ use DB;
 
 class IssuesController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -35,9 +40,9 @@ class IssuesController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'tracker' => ['required', 'string', 'max:255'],
-            'priority' => ['required', 'string', 'max:255'],
-            'status' => ['required', 'string', 'max:255'],
+            'tracker' => ['required', 'int', 'max:255'],
+            'priority' => ['required', 'int', 'max:255'],
+            'status' => ['required', 'int', 'max:255'],
             'users' => ['required', 'string', 'max:255'],
             'subject' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:255'],
@@ -99,7 +104,11 @@ class IssuesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $list = DB::table('issues_tracker')->get();
+        $list2 = DB::table('issues_priority')->get();
+        $arealist = DB::table('issues_status')->get();
+        $data=Issues::find($id);
+        return view('issues.edit',compact(['data'],['list'],['list2'],['arealist'],));
     }
 
     /**
@@ -111,7 +120,12 @@ class IssuesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'subject'=>'required',
+            'description'=>'required'
+        ]);
+        Issues::find($id)->update($request->all());
+        return redirect('/index');
     }
 
     /**
@@ -122,6 +136,7 @@ class IssuesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Issues::find($id)->delete();
+        return redirect('/index');
     }
 }
