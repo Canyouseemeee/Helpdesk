@@ -22,7 +22,7 @@
         <tr>
         <th scope="row">{{$row->id}}</th>
         @foreach($list as $row2)
-        <td value="$row->id">{{$row2->ISTName}}</td>
+          <td value="$row2->id">{{$row2->ISTName}}</td>
         @endforeach
         <td>{{$row->Priorityid}}</td>
         <td>{{$row->Statusid}}</td>
