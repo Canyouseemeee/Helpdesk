@@ -26,7 +26,3 @@ Route::get('/issues','IssuesController@getAdd');
 Route::post('/index','IssuesController@store');
 Route::post('/issues','IssuesController@update');
 
-
-
-
-

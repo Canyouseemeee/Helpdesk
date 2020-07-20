@@ -1,5 +1,9 @@
 @extends('layouts.app')
 @section('content')
+<?php 
+  // echo print_r($list);
+?>
+
     <div class="container">
         <h2 align="center">ข้อมูลปัญหา</h2>
         <a href="/issues" class="btn btn-primary">แจ้งปัญหา</a>
@@ -18,24 +22,22 @@
     </tr>
   </thead>
   <tbody>
-    @foreach($data as $row)
+    @foreach($list as $row)
         <tr>
-        <th scope="row">{{$row->id}}</th>
-        @foreach($list as $row2)
-          <td value="$row2->id">{{$row2->ISTName}}</td>
-        @endforeach
-        <td>{{$row->Priorityid}}</td>
-        <td>{{$row->Statusid}}</td>
+        <th scope="row">{{$row->Issuesid}}</th>
+        <td>{{$row->ISTName}}</td>
+        <td>{{$row->ISPName}}</td>
+        <td>{{$row->ISSName}}</td>
         <td>{{$row->Users}}</td>
         <td>{{$row->Subject}}</td>
         <td>{{$row->Description}}</td>
         <td>
-          <a href="{{route('issues.edit',$row->id)}}" class="btn btn-success">แก้ไข</a>
+          <a href="{{route('issues.edit',$row->Issuesid)}}" class="btn btn-success">แก้ไข</a>
         </td>
         <td>
-          <form action="{{route('issues.destroy',$row->id)}}" method="post">
+          <form action="{{route('issues.destroy',$row->Issuesid)}}" method="post">
             @csrf @method('DELETE')
-            <input type="submit" value='ลบ' data-id="{{$row->id}}" class="btn btn-danger deleteForm">
+            <input type="submit" value='ลบ' data-id="{{$row->Issuesid}}" class="btn btn-danger deleteForm">
           </form>
         </td>
         </tr>

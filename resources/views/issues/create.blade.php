@@ -18,7 +18,7 @@
                 <select name="Trackerid" id="Trackerid" class="form-control create">
                     <option value="">เลือกข้อมูล H/S </option>
                     @foreach($list as $row)
-                        <option value="{{$row->id}}">{{$row->ISTName}}</option>
+                        <option value="{{$row->Trackerid}}">{{$row->ISTName}}</option>
                     @endforeach
                 </select>
             </div>
@@ -28,7 +28,7 @@
                 <select name="Priorityid" id="Priorityid" class="form-control create">
                     <option value="">เลือกระดับความสำคัญ</option>
                     @foreach($list2 as $row2)
-                        <option value="{{$row2->id}}">{{$row2->ISPName}}</option>
+                        <option value="{{$row2->Priorityid}}">{{$row2->ISPName}}</option>
                     @endforeach
                 </select>
             </div>
@@ -38,7 +38,7 @@
                 <select name="Statusid" id="Statusid" class="form-control create">
                     <option value="">เลือกสถานะของปัญหา</option>
                     @foreach($arealist as $arealist1)
-                        <option value="{{$arealist1->id}}">{{$arealist1->ISSName}}</option>
+                        <option value="{{$arealist1->Statusid}}">{{$arealist1->ISSName}}</option>
                     @endforeach
                 </select>
             </div>

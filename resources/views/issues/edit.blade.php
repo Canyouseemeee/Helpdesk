@@ -10,15 +10,15 @@
             @endforeach
         </ul>
     @endif
-    {!! Form::open(['action' => ['IssuesController@update',$data->id],'method'=>'PUT']) !!}
+    {!! Form::open(['action' => ['IssuesController@update',$data->Issuesid],'method'=>'PUT']) !!}
         <div class="col-md-6">
             <div class="form-group">
                 {!! Form::label('Tracker') !!}
                 <select name="Trackerid" id="Trackerid" class="form-control create">
                     
                     @foreach($list as $row)
-                        <option value="{{$row->id}}"
-                        @if ($row->id === $data->Trackerid)
+                        <option value="{{$row->Trackerid}}"
+                        @if ($row->Trackerid === $data->Trackerid)
                             selected
                         @endif
                         >{{$row->ISTName}}</option>
@@ -33,8 +33,8 @@
                 
                     
                     @foreach($list2 as $row2)
-                        <option value="{{$row2->id}}"
-                        @if ($row2->id === $data->Priorityid)
+                        <option value="{{$row2->Priorityid}}"
+                        @if ($row2->Priorityid === $data->Priorityid)
                             selected
                         @endif
                         >{{$row2->ISPName}}</option>
@@ -49,8 +49,8 @@
                
                    
                     @foreach($arealist as $row3)
-                        <option value="{{$row3->id}}"
-                        @if ($row3->id === $data->Statusid)
+                        <option value="{{$row3->Statusid}}"
+                        @if ($row3->Statusid === $data->Statusid)
                             selected
                         @endif
                         >{{$row3->ISSName}}</option>

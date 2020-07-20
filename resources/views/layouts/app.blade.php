@@ -76,7 +76,8 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+        @include('sweetalert::alert')
+        @yield('content')
         </main>
     </div>
 </body>
