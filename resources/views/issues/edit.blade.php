@@ -58,6 +58,20 @@
                 
                 </select>
             </div>
+
+            <div class="form-group">
+                {!! Form::label('Category') !!}
+                <select name="Departmentid" id="Departmentid" class="form-control create">
+                    <!-- <option value="">เลือกสถานะของปัญหา</option> -->
+                    @foreach($arealist3 as $arealist3)
+                    <option value="{{$arealist3->Departmentid}}"
+                        @if ($arealist3->Departmentid === $data->Departmentid)
+                            selected
+                        @endif
+                        >{{$arealist3->DmName}}</option>
+                    @endforeach
+                </select>
+            </div>
             
             <div class="form-group">
                 {!! Form::label('Users') !!}

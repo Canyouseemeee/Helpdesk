@@ -22,7 +22,10 @@ Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('issues','IssuesController')->middleware('auth');
 Route::get('/index','IssuesController@index');
-Route::get('/issues','IssuesController@getAdd');
+Route::get('/issues','IssuesController@getAdd')->name('upload.file');;
+// Route::get('file','IssuesController@showUploadForm')
+// Route::post('file','IssuesController@storeFile');
 Route::post('/index','IssuesController@store');
 Route::post('/issues','IssuesController@update');
+
 

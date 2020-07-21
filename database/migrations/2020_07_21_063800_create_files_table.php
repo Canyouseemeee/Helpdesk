@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateIssuesTrackersTable extends Migration
+class CreateFilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateIssuesTrackersTable extends Migration
      */
     public function up()
     {
-        Schema::create('issues__trackers', function (Blueprint $table) {
-            $table->id();
+        Schema::create('files', function (Blueprint $table) {
+            $table->increments('Fileid');
+            $table->string('Name');
+            $table->string('Size');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateIssuesTrackersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('issues__trackers');
+        Schema::dropIfExists('files');
     }
 }

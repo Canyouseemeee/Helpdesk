@@ -11,12 +11,12 @@
             @endforeach
         </ul>
     @endif
-    {!! Form::open(['action' => 'IssuesController@store','method'=>'POST']) !!}
+    {!! Form::open(['action' => 'IssuesController@store','method'=>'POST','enctype'=>'multipart/form-data']) !!}
         <div class="col-md-6">
             <div class="form-group">
                 {!! Form::label('Tracker') !!}
                 <select name="Trackerid" id="Trackerid" class="form-control create">
-                    <option value="">เลือกข้อมูล H/S </option>
+                    <!-- <option value="">เลือกข้อมูล H/S </option> -->
                     @foreach($list as $row)
                         <option value="{{$row->Trackerid}}">{{$row->ISTName}}</option>
                     @endforeach
@@ -26,9 +26,11 @@
             <div class="form-group">
                 {!! Form::label('Priority') !!}
                 <select name="Priorityid" id="Priorityid" class="form-control create">
-                    <option value="">เลือกระดับความสำคัญ</option>
+                    <!-- <option value="">เลือกระดับความสำคัญ</option> -->
                     @foreach($list2 as $row2)
-                        <option value="{{$row2->Priorityid}}">{{$row2->ISPName}}</option>
+                        <option value="{{$row2->Priorityid}}"  @if ($row2->Priorityid === 2)
+                            selected
+                        @endif>{{$row2->ISPName}}</option>
                     @endforeach
                 </select>
             </div>
@@ -36,9 +38,19 @@
             <div class="form-group">
                 {!! Form::label('Status') !!}
                 <select name="Statusid" id="Statusid" class="form-control create">
-                    <option value="">เลือกสถานะของปัญหา</option>
+                    <!-- <option value="">เลือกสถานะของปัญหา</option> -->
                     @foreach($arealist as $arealist1)
                         <option value="{{$arealist1->Statusid}}">{{$arealist1->ISSName}}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group">
+                {!! Form::label('Category') !!}
+                <select name="Departmentid" id="Departmentid" class="form-control create">
+                    <!-- <option value="">เลือกสถานะของปัญหา</option> -->
+                    @foreach($arealist3 as $arealist3)
+                        <option value="{{$arealist3->Departmentid}}">{{$arealist3->DmName}}</option>
                     @endforeach
                 </select>
             </div>
@@ -58,8 +70,13 @@
                 {!! Form::textarea('description',null,["class"=>"form-control",'rows' => 6, 'cols' => 60]) !!}
                 
             </div>
-                <input type="submit" value="บันทึก" class="btn btn-primary ">
-                <a href="/index" class="btn btn-success">ย้อนกลับ</a>
+            <div>
+            <input type="file" name="fileupload1" id="fileupload1">
+            @csrf
+            </div>
+            <br>
+            <input type="submit" value="บันทึก" class="btn btn-primary ">
+            <a href="/index" class="btn btn-success">ย้อนกลับ</a>
             
         </div>
     {!! Form::close() !!}
