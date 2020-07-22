@@ -8,6 +8,6 @@ class Issues extends Model
 {
     protected $primaryKey = 'Issuesid';
     protected $fillable = [
-        'Trackerid','Priorityid','Statusid','users','subject','description','fileupload1'
+        'Trackerid','Priorityid','Statusid','Departmentid','users','subject','description','fileupload1'
     ];
 }

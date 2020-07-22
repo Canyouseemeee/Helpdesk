@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Issues;
-// use App\Issues_Tracker;
 use App\File;
 use DB;
 
@@ -29,10 +28,12 @@ class IssuesController extends Controller
         ->join('issues_priority','issues.Priorityid','=','issues_priority.Priorityid')
         ->join('issues_status','issues.Statusid','=','issues_status.Statusid')
         ->orderBy('Issuesid','ASC')
-        ->get();
+        ->paginate(10);
+        // ->get();
         
         $data=Issues::all();
         return view('index',compact(['data'],['list']));
+            // ->with('i',(request()->input('page', 1) - 1) * 10);
 
     }
 
@@ -43,7 +44,6 @@ class IssuesController extends Controller
         $arealist2 = DB::table('files')->get();
         $arealist3 = DB::table('department')->get();
         return view('issues.create',compact(['list'],['list2'],['arealist'],['arealist2'],['arealist3']));
-
     }
 
     // public function showUploadForm(){
@@ -111,26 +111,21 @@ class IssuesController extends Controller
     {
         $request->validate([
             'subject'=>'required',
-            'description'=>'required'
+            'description'=>'required',
+            'fileupload1' => 'required|image|max:2048'
         ]);
 
-        // if($request->hasFile('file')){
-        //     $filename = $request->file->getClientOriginalName();
-        //     $filesize = $request->file->getClientSize();
-        //     $request->file->storeAs('public/upload',$filename);
-        //     $file = new File;
-        //     $file->name = $filename;
-        //     $file->size = $filesize;
-        //     $file->save();
-        //     return 'yes';
-        // }
-        // File::create($request->all());
-        // echo print_r($request->all());
-        // die();
-        $path=$request->file('fileupload1')->store('avatars');
-        Issues::create($request->all());
-        return ['path'=>$path,'upload'=>'success'];
-        return redirect('/index');
+        $fileupload1 = $request->file('fileupload1');
+        $new_name = rand() . '.' . $fileupload1->
+            getClientOriginalExtension();
+        $fileupload1->move(public_path('fileupload1'), $new_name);
+        $form_data = array(
+            'subject' => $request->subject,
+            'description' => $request->description,
+            'fileupload1' => $new_name,
+        );
+        Issues::create($request->all(),$form_data);
+        return redirect('/index')->with('success', 'Data Added successfully.');
     }
 
     /**
@@ -141,7 +136,12 @@ class IssuesController extends Controller
      */
     public function show($Issuesid)
     {
-        //
+        $list = DB::table('issues_tracker')->get();
+        $list2 = DB::table('issues_priority')->get();
+        $arealist = DB::table('issues_status')->get();
+        $data=Issues::find($Issuesid);
+        $arealist3 = DB::table('department')->get();
+        return view('issues.view',compact(['data'],['list'],['list2'],['arealist'],['arealist3']));
     }
 
     /**
