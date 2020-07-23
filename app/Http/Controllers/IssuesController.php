@@ -21,19 +21,29 @@ class IssuesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+
+        // if(request()->has('Trackerid')){
+        //     $users = Issues::where('Trackerid',request('Trackerid'))
+        //         ->paginate(5)
+        //         ->appends('Trackerid',request('Trackerid'));
+        // } else if(request()->has('sort')){
+        //     $users = Issues::orderBy('Issuesid',request('sort'))
+        //         ->paginate(5);
+        // }else {  
+        //     $users = Issues::paginate(5);
+        // }
+
         $list = DB::table('issues_tracker')
         ->select('Issuesid','ISTName','ISSName','ISPName','Users','Subject','created_at','updated_at')
         ->join('issues','issues.Trackerid','=','issues_tracker.Trackerid')
         ->join('issues_priority','issues.Priorityid','=','issues_priority.Priorityid')
         ->join('issues_status','issues.Statusid','=','issues_status.Statusid')
-        ->orderBy('Issuesid','ASC')
+        ->where('issues.Statusid',1)
+        ->orderBy('Issuesid','DESC')
         ->paginate(10);
-        // ->get();
-        
         $data=Issues::all();
         return view('index',compact(['data'],['list']));
-            // ->with('i',(request()->input('page', 1) - 1) * 10);
 
     }
 
@@ -41,9 +51,9 @@ class IssuesController extends Controller
         $list = DB::table('issues_tracker')->get();
         $list2 = DB::table('issues_priority')->get();
         $arealist = DB::table('issues_status')->get();
-        $arealist2 = DB::table('files')->get();
+        // $arealist2 = DB::table('files')->get();
         $arealist3 = DB::table('department')->get();
-        return view('issues.create',compact(['list'],['list2'],['arealist'],['arealist2'],['arealist3']));
+        return view('issues.create',compact(['list'],['list2'],['arealist'],['arealist3']));
     }
 
     // public function showUploadForm(){

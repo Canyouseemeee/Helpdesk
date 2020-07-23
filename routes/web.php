@@ -21,12 +21,12 @@ Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('issues','IssuesController')->middleware('auth');
-Route::get('/index','IssuesController@index');
-Route::get('/view','IssuesController@show');
+Route::get('/','IssuesController@index')->middleware('auth');
+Route::get('/view','IssuesController@show')->middleware('auth');
 Route::get('/issues','IssuesController@getAdd')->name('upload.file');;
 // Route::get('file','IssuesController@showUploadForm')
 // Route::post('file','IssuesController@storeFile');
-Route::post('/index','IssuesController@store');
-Route::post('/issues','IssuesController@update');
+Route::post('/','IssuesController@store')->middleware('auth');
+Route::post('/issues','IssuesController@update')->middleware('auth');
 
 

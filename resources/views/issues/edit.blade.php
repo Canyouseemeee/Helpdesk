@@ -79,7 +79,7 @@
         {!! Form::label('Description') !!}
         {!! Form::textarea('description',$data->Description,["class"=>"form-control",'rows' => 6, 'cols' => 60]) !!}
     </div>
-
+    
     <input href="$data->Issuesid" type="submit" value="อัพเดท" class="btn btn-primary">
     <a href="{{route('issues.show',$data->Issuesid)}}" class="btn btn-success">ย้อนกลับ</a>
         

@@ -5,6 +5,10 @@ div.a {
     font-size: 150%;
 }
 </style>
+<script>
+  new FroalaEditor('textarea#froala-editor')
+</script>
+
     {!! Form::open(['action' => ['IssuesController@show',$data->Issuesid],'method'=>'PUT']) !!}
     <div class="jumbotron" style="font-size:20px">
         <div class="form-row " >
@@ -51,15 +55,18 @@ div.a {
             </div>
         </div>
         
-            <div class="form-group">
+            <div class="form-group" >
             <b>{!! Form::label('Subject :') !!}</b>
-                {!! Form::label('subject',$data->Subject) !!}
+                {!! Form::label('subject',$data->Subject,['style'=>'word-break:break-all']) !!}
+            </div>
+            
+            
+            
+            <div class="form-group" >
+                <b>{!! Form::label('Description :') !!}</b>
+                {!! Form::label('description',$data->Description,['style'=>'word-break:break-all']) !!}
             </div>
 
-            <div class="form-group ">
-            <b>{!! Form::label('Description :') !!}</b>
-                {!! Form::label('description',$data->Description,['width'=>'500','class'=>'style1','style'=>'word-break:break-all']) !!}
-            </div>
 
             <!-- <input type="submit" value="อัพเดท" class="btn btn-primary"> -->
             <a href="{{route('issues.edit',$data->Issuesid)}}" class="btn btn-primary">แก้ไข</a>

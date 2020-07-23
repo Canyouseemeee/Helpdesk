@@ -7,10 +7,17 @@
 </div>
 @endif
 
-    <div class="container">
-        <h2 align="center">ข้อมูลปัญหา</h2>
-        <a href="/issues" class="btn btn-primary">แจ้งปัญหา</a>
-        <table class="table table-striped">
+<div class="content">
+<h2 align="center">ข้อมูลปัญหา</h2>
+<a href="/issues" class="btn btn-primary">แจ้งปัญหา</a>
+Filter : 
+<a href="/?Trackerid=Bug">Bug</a>|
+<a href="/?Trackerid=Support">Support</a>|
+<a href="/">Reset</a>
+
+<a href="/?sort=asc">asc</a>
+<a href="/?sort=desc">desc</a>
+<table class="table table-striped">
   <thead>
     <tr>
       <th scope="col" style="text-align:center">#</th>
@@ -33,7 +40,7 @@
         <td style="text-align:center">{{$row->ISSName}}</td>
         <td style="text-align:center">{{$row->ISPName}}</td>
         <td style="text-align:center">{{$row->Users}}</td>
-        <td width='400' class="style1" style='word-break:break-all'>{{$row->Subject}}</td>
+        <td><a href="{{route('issues.show',$row->Issuesid)}}" width='300' class="style1" style='word-break:break-all'>{{$row->Subject}}</a></td>
         <td style="text-align:center">{{$row->created_at}}</td>
         <td style="text-align:center">{{$row->updated_at}}</td>
         <td>

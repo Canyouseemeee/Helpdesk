@@ -64,8 +64,9 @@
 
         <div class="form-group">
             {!! Form::label('Description') !!}
-            {!! Form::textarea('description',null,["class"=>"form-control",'rows' => 6, 'cols' => 60]) !!}   
+            {!! Form::textarea('description',null,["class"=>"form-control",'rows' => 6, 'cols' => 60 , 'id'=>"summernote"]) !!}
         </div>
+
 
         <div>
             <input type="file" name="fileupload1" id="fileupload1">
