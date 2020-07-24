@@ -77,7 +77,7 @@
 
     <div class="form-group">
         {!! Form::label('Description') !!}
-        {!! Form::textarea('description',$data->Description,["class"=>"form-control",'rows' => 6, 'cols' => 60]) !!}
+        {!! Form::textarea('description',$data->created_at,["class"=>"form-control",'rows' => 6, 'cols' => 60]) !!}
     </div>
     
     <input href="$data->Issuesid" type="submit" value="อัพเดท" class="btn btn-primary">

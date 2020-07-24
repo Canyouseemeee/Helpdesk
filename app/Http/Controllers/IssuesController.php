@@ -21,19 +21,7 @@ class IssuesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
-
-        // if(request()->has('Trackerid')){
-        //     $users = Issues::where('Trackerid',request('Trackerid'))
-        //         ->paginate(5)
-        //         ->appends('Trackerid',request('Trackerid'));
-        // } else if(request()->has('sort')){
-        //     $users = Issues::orderBy('Issuesid',request('sort'))
-        //         ->paginate(5);
-        // }else {  
-        //     $users = Issues::paginate(5);
-        // }
-
+    {  
         $list = DB::table('issues_tracker')
         ->select('Issuesid','ISTName','ISSName','ISPName','Users','Subject','created_at','updated_at')
         ->join('issues','issues.Trackerid','=','issues_tracker.Trackerid')
@@ -47,6 +35,32 @@ class IssuesController extends Controller
 
     }
 
+    public function getDefer(){
+        $list = DB::table('issues_tracker')
+        ->select('Issuesid','ISTName','ISSName','ISPName','Users','Subject','created_at','updated_at')
+        ->join('issues','issues.Trackerid','=','issues_tracker.Trackerid')
+        ->join('issues_priority','issues.Priorityid','=','issues_priority.Priorityid')
+        ->join('issues_status','issues.Statusid','=','issues_status.Statusid')
+        ->where('issues.Statusid',3)
+        ->orderBy('Issuesid','DESC')
+        ->paginate(10);
+        $data=Issues::all();
+        return view('defer',compact(['data'],['list']));
+    }
+
+    public function getClosed(){
+        $list = DB::table('issues_tracker')
+        ->select('Issuesid','ISTName','ISSName','ISPName','Users','Subject','created_at','updated_at')
+        ->join('issues','issues.Trackerid','=','issues_tracker.Trackerid')
+        ->join('issues_priority','issues.Priorityid','=','issues_priority.Priorityid')
+        ->join('issues_status','issues.Statusid','=','issues_status.Statusid')
+        ->where('issues.Statusid',2)
+        ->orderBy('Issuesid','DESC')
+        ->paginate(10);
+        $data=Issues::all();
+        return view('closed',compact(['data'],['list']));
+    }
+
     public function getAdd(){
         $list = DB::table('issues_tracker')->get();
         $list2 = DB::table('issues_priority')->get();
@@ -55,27 +69,6 @@ class IssuesController extends Controller
         $arealist3 = DB::table('department')->get();
         return view('issues.create',compact(['list'],['list2'],['arealist'],['arealist3']));
     }
-
-    // public function showUploadForm(){
-    //     return view('upload');
-    //     // return $request->all();
-    // }
-    
-    // public function storeFile(request $request){
-    //     if($request->hasFile('file')){
-    //         $filename = $request->file->getClientOriginalName();
-    //         $filesize = $request->file->getClientSize();
-    //         $request->file->storeAs('public/upload',$filename);
-    //         $file = new File;
-    //         $file->name = $filename;
-    //         $file->size = $filesize;
-    //         $file->save();
-    //         return 'yes';
-    //     }
-    //     File::create($request->all());
-    //     return redirect('/index');
-    //     // return $request->all();
-    // }
 
     protected function validator(array $data)
     {
@@ -134,6 +127,7 @@ class IssuesController extends Controller
             'description' => $request->description,
             'fileupload1' => $new_name,
         );
+        
         Issues::create($request->all(),$form_data);
         return redirect('/index')->with('success', 'Data Added successfully.');
     }
