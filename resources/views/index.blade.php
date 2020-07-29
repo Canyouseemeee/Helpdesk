@@ -1,6 +1,10 @@
 @extends('layouts.app')
 @section('content')
 
+<?php
+$mytime = Carbon\Carbon::now();
+// echo $mytime = formatDateThai( date("Y-m-d H:i:s"));
+?>
 @if ($message = Session::get('success'))
 <div class="alert alert-success">
   <p>{{$message}}</p>
@@ -10,13 +14,17 @@
 <div class="content">
   <h2 align="center">ข้อมูลปัญหาใหม่</h2>
   <div class="container">
-    <a href="/issues" class="btn btn-primary">แจ้งปัญหา</a><br />
-    <div class="form-row">
-      <div class="form-group">
-      <br />
-        <input type="date" name="fromdate">
+    <a href="/issues" class="btn btn-primary">แจ้งปัญหา</a>
+      <div class="col-xs-9">
+        <div class="form-group col-md-3">
+          {!! Form::label('Fromdate')!!}
+          {!! Form::date('fromdate',null,["class"=>"form-control","style"=>"text-align:center"]) !!}
+        </div>
+        <div class="form-group col-md-3">
+          {!! Form::label('Todate')!!}
+          {!! Form::date('todate',null,["class"=>"form-control","style"=>"text-align:center"]) !!}
+        </div>
       </div>
-    </div>
   </div>
 
   <table class="table table-striped">
@@ -55,10 +63,8 @@
             @csrf @method('DELETE')
             <input type="submit" value='ลบ' data-id="{{$row->Issuesid}}" class="btn btn-danger deleteForm">
           </form>
-        </td> -->
-        </tr>
+        </td> --> 
     @endforeach
-    
   </tbody>
 </table>
     <div>

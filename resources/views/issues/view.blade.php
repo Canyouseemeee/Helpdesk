@@ -53,6 +53,16 @@ div.a {
             <b>{!! Form::label('Users : ') !!}</b>
                 {!! Form::label('users',$data->Users) !!}
             </div>
+
+            <div class="form-group col-md-3">
+                <b>{!! Form::label('วันที่แจ้ง :') !!}</b>
+                {!! Form::label('Date_In',now()->toDateString()) !!}
+            </div>
+
+            <div class="form-group col-md-5">
+                <b>{!! Form::label('วันที่แก้ไขล่าสุด :') !!}</b>
+                {!! Form::label('update_at',($data->updated_at)->toDateTimeString()) !!}
+            </div>
         </div>
         
             <div class="form-group" >

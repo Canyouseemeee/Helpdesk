@@ -56,6 +56,11 @@
             {!! Form::label('Users') !!}
             {!! Form::text('users', Auth::user()->name ,["class"=>"form-control",'readonly'=>"readonly"]) !!}
         </div>
+
+        <div class="form-group col-md-3">
+            {!! Form::label('Date') !!}
+            {!! Form::text('Date_In',now()->toDateString(),["class"=>"form-control"]) !!}
+        </div>
     </div>
         <div class="form-group">
             {!! Form::label('Subject') !!}
@@ -66,7 +71,6 @@
             {!! Form::label('Description') !!}
             {!! Form::textarea('description',null,["class"=>"form-control",'rows' => 6, 'cols' => 60 , 'id'=>"summernote"]) !!}
         </div>
-
 
         <div>
             <input type="file" name="fileupload1" id="fileupload1">

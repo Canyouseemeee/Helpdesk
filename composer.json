@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",
         "laravelcollective/html": "^6.1",
+        "nesbot/carbon": "^2.37",
         "realrashid/sweet-alert": "^3.1"
     },
     "require-dev": {
@@ -43,6 +44,7 @@
             "database/seeds",
             "database/factories"
         ]
+        
     },
     "autoload-dev": {
         "psr-4": {

@@ -27,10 +27,10 @@ class IssuesController extends Controller
         ->join('issues','issues.Trackerid','=','issues_tracker.Trackerid')
         ->join('issues_priority','issues.Priorityid','=','issues_priority.Priorityid')
         ->join('issues_status','issues.Statusid','=','issues_status.Statusid')
-        ->where('issues.Statusid',1)
+        ->where([['issues.Statusid',1],['issues.Date_In',now()->toDateString()]])
         ->orderBy('Issuesid','DESC')
         ->paginate(10);
-        $data=Issues::all();
+        $data = Issues::all();
         return view('index',compact(['data'],['list']));
 
     }
@@ -97,6 +97,7 @@ class IssuesController extends Controller
             'users' => $data['users'],
             'subject' => $data['subject'],
             'description' => $data['description'],
+            'date_in' => $data['date_in'],
             'fileid' => $data['fileid'],
         ]);
         
