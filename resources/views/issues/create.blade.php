@@ -59,7 +59,7 @@
 
         <div class="form-group col-md-3">
             {!! Form::label('Date') !!}
-            {!! Form::text('Date_In',now()->toDateString(),["class"=>"form-control"]) !!}
+            {!! Form::text('Date_In',now()->toDateString(),["class"=>"form-control",'readonly'=>"readonly"]) !!}
         </div>
     </div>
         <div class="form-group">

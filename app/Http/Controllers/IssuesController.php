@@ -29,9 +29,68 @@ class IssuesController extends Controller
         ->join('issues_status','issues.Statusid','=','issues_status.Statusid')
         ->where([['issues.Statusid',1],['issues.Date_In',now()->toDateString()]])
         ->orderBy('Issuesid','DESC')
-        ->paginate(10);
+        ->paginate(10); 
         $data = Issues::all();
-        return view('index',compact(['data'],['list']));
+        $between = null;
+        return view('index',compact(['data'],['list'],['between']));
+
+    }
+
+    public function getReport(request $request){
+        $fromdate = $request->input('fromdate');
+        $todate = $request->input('todate');
+        if ($request->isMethod('POST')) {
+            $between = DB::table('issues_tracker')
+            ->select('Issuesid','ISTName','ISSName','ISPName','Users','Subject','created_at','updated_at')
+            ->join('issues','issues.Trackerid','=','issues_tracker.Trackerid')
+            ->join('issues_priority','issues.Priorityid','=','issues_priority.Priorityid')
+            ->join('issues_status','issues.Statusid','=','issues_status.Statusid')
+            ->where('issues.Statusid',1)
+            ->whereBetween('issues.Date_In', [$fromdate, $todate])
+            ->orderBy('Issuesid','DESC')
+            ->paginate(10);
+        } else {
+            $between = null;
+        }
+        $data = Issues::all();
+        $list = null;
+        return view('index',compact(['data'],['between'],['list']));
+
+    }
+
+    public function getClosed(){
+        $list = DB::table('issues_tracker')
+        ->select('Issuesid','ISTName','ISSName','ISPName','Users','Subject','created_at','updated_at')
+        ->join('issues','issues.Trackerid','=','issues_tracker.Trackerid')
+        ->join('issues_priority','issues.Priorityid','=','issues_priority.Priorityid')
+        ->join('issues_status','issues.Statusid','=','issues_status.Statusid')
+        ->where('issues.Statusid',2)
+        ->orderBy('Issuesid','DESC')
+        ->paginate(10);
+        $data=Issues::all();
+        $between = null;
+        return view('closed',compact(['data'],['list'],['between']));
+    }
+
+    public function getReportClosed(request $request){
+        $fromdate = $request->input('fromdate');
+        $todate = $request->input('todate');
+        if ($request->isMethod('POST')) {
+            $between = DB::table('issues_tracker')
+            ->select('Issuesid','ISTName','ISSName','ISPName','Users','Subject','created_at','updated_at')
+            ->join('issues','issues.Trackerid','=','issues_tracker.Trackerid')
+            ->join('issues_priority','issues.Priorityid','=','issues_priority.Priorityid')
+            ->join('issues_status','issues.Statusid','=','issues_status.Statusid')
+            ->where('issues.Statusid',2)
+            ->whereBetween('issues.Date_In', [$fromdate, $todate])
+            ->orderBy('Issuesid','DESC')
+            ->paginate(10);
+        } else {
+            $between = null;
+        }
+        $data = Issues::all();
+        $list = null;
+        return view('closed',compact(['data'],['between'],['list']));
 
     }
 
@@ -45,20 +104,29 @@ class IssuesController extends Controller
         ->orderBy('Issuesid','DESC')
         ->paginate(10);
         $data=Issues::all();
-        return view('defer',compact(['data'],['list']));
+        $between = null;
+        return view('defer',compact(['data'],['list'],['between']));
     }
 
-    public function getClosed(){
-        $list = DB::table('issues_tracker')
-        ->select('Issuesid','ISTName','ISSName','ISPName','Users','Subject','created_at','updated_at')
-        ->join('issues','issues.Trackerid','=','issues_tracker.Trackerid')
-        ->join('issues_priority','issues.Priorityid','=','issues_priority.Priorityid')
-        ->join('issues_status','issues.Statusid','=','issues_status.Statusid')
-        ->where('issues.Statusid',2)
-        ->orderBy('Issuesid','DESC')
-        ->paginate(10);
-        $data=Issues::all();
-        return view('closed',compact(['data'],['list']));
+    public function getReportDefer(request $request){
+        $fromdate = $request->input('fromdate');
+        $todate = $request->input('todate');
+        if ($request->isMethod('POST')) {
+            $between = DB::table('issues_tracker')
+            ->select('Issuesid','ISTName','ISSName','ISPName','Users','Subject','created_at','updated_at')
+            ->join('issues','issues.Trackerid','=','issues_tracker.Trackerid')
+            ->join('issues_priority','issues.Priorityid','=','issues_priority.Priorityid')
+            ->join('issues_status','issues.Statusid','=','issues_status.Statusid')
+            ->where('issues.Statusid',3)
+            ->whereBetween('issues.Date_In', [$fromdate, $todate])
+            ->orderBy('Issuesid','DESC')
+            ->paginate(10);
+        } else {
+            $between = null;
+        }
+        $data = Issues::all();
+        $list = null;
+        return view('closed',compact(['data'],['between'],['list']));
     }
 
     public function getAdd(){
